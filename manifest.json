@@ -1,0 +1,33 @@
+{
+  "name": "Select Search Shortcut",
+  "version": "1.0",
+  "description": "Keyboard shorcut to auto search currently selected text.",
+  "manifest_version": 2,
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "notifications",
+    "declarativeContent"
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "commands": {
+    "search": {
+      "description": "Open new tab with google search",
+      "suggested_key": {
+        "default": "Ctrl+G",
+        "mac": "MacCtrl+G"
+      }
+    },
+    "_execute_page_action": {
+      "description": "Copy the link to the active pipeline",
+      "suggested_key": {
+        "default": "Ctrl+S",
+        "mac": "MacCtrl+S"
+      }
+    }
+  }
+}
+

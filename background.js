@@ -1,6 +1,6 @@
 // Setup keyboard event listener
 
-function spawnTab(query) {
+function spawnSearchTab(query) {
     chrome.tabs.create(
         {
             active: true,
@@ -10,52 +10,40 @@ function spawnTab(query) {
 }
 
 chrome.commands.onCommand.addListener(function(command) {
-  if (command == "search") {
-    const query = window.getSelection().toString() // doesnt work; wrong window context
-    // chrome.tabs.create(
-    //   {
-    //       active: false,
-    //       url: 'http://www.yahoo.com?q='+query
-    // }
-    // );
-    // spawnTab(query)
-
-    // chrome.extension.getBackgroundPage().console.log(
-    //     'foo',
-    //     ' reading ',
-    //     window.getSelection().toString(), 
-    //     ' document... ',
-    //     chrome.tabs.getCurrent(function(tab) {
-    //         console.log('tab...', tab)
-    //     })
-    // );
-
+    console.log('command is...', command)
+  if (command === 'search') {
     // Get the currently selected tab
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        var current = tabs[0]
-        console.log('hi', current)
-    //   chrome.tabs.update(current.id, {'pinned': !current.pinned});
-        chrome.tabs.executeScript(
-            // current.id,
-            {
-                // code: 'console.log("this is the window", window, " and text is: ", window.getSelection().toString());'
-                file: 'contentscript.js'
-            },
-            _=>{ console.log('uhoh', chrome.runtime.lastError) }
-        )
-   });
+    // chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    //     var current = tabs[0]
+    //     console.log('hi', current)
+    // });
+
+    const search_script = `chrome.runtime.sendMessage(
+        {
+            type: 'search',
+            text: window.getSelection().toString() || ''        
+        }
+    )`
+
+    chrome.tabs.executeScript(
+        {
+            code: search_script
+            // file: 'contentscript.js'
+        },
+        // _=>{ console.log('uhoh', chrome.runtime.lastError) }
+    )
+  }
+  if (command === '_execute_page_action') {
+      console.log('otherrrrr!')
   }
 });
 
 chrome.runtime.onMessage.addListener(
     function(message, callback) {
-        console.log('message received!')
-        console.log('heres what we got...', message)
-        // if (message == "search") {
-            // chrome.tabs.executeScript({
-            //     code: 'document.body.style.backgroundColor="orange"'
-            // });
-        // }
-        spawnTab(message.text)
+        // console.log('heres what we got...', message)
+        if (message.type === "search") {
+            if (message.text) spawnSearchTab(message.text)
+        }
+        else if (message.type === "other") console.log('Do other!')
     }
 )

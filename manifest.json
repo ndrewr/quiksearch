@@ -4,10 +4,7 @@
   "description": "Keyboard shorcut to auto search currently selected text.",
   "manifest_version": 2,
   "permissions": [
-    "activeTab",
-    "tabs",
-    "notifications",
-    "declarativeContent"
+    "activeTab"
   ],
   "background": {
     "scripts": ["background.js"],
@@ -20,14 +17,6 @@
         "default": "Ctrl+G",
         "mac": "MacCtrl+G"
       }
-    },
-    "_execute_page_action": {
-      "description": "Copy the link to the active pipeline",
-      "suggested_key": {
-        "default": "Ctrl+S",
-        "mac": "MacCtrl+S"
-      }
     }
   }
 }
-

@@ -10,14 +10,7 @@ function spawnSearchTab(query) {
 }
 
 chrome.commands.onCommand.addListener(function(command) {
-    console.log('command is...', command)
   if (command === 'search') {
-    // Get the currently selected tab
-    // chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    //     var current = tabs[0]
-    //     console.log('hi', current)
-    // });
-
     const search_script = `chrome.runtime.sendMessage(
         {
             type: 'search',
@@ -33,9 +26,7 @@ chrome.commands.onCommand.addListener(function(command) {
         // _=>{ console.log('uhoh', chrome.runtime.lastError) }
     )
   }
-  if (command === '_execute_page_action') {
-      console.log('otherrrrr!')
-  }
+  // TODO: handle other shortcuts?
 });
 
 chrome.runtime.onMessage.addListener(

@@ -19,8 +19,8 @@
     "search": {
       "description": "Open new tab with google search",
       "suggested_key": {
-        "default": "Ctrl+G",
-        "mac": "MacCtrl+G"
+        "default": "Alt+G",
+        "mac": "Alt+G"
       }
     }
   }

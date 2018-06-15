@@ -1,4 +1,6 @@
-// Setup keyboard event listener
+/*
+    Set keyboard event listener to open a new tab with Google search results
+*/
 
 function spawnSearchTab(query) {
     chrome.tabs.create(
@@ -22,19 +24,16 @@ chrome.commands.onCommand.addListener(function(command) {
         {
             code: search_script
             // file: 'contentscript.js'
-        },
-        // _=>{ console.log('uhoh', chrome.runtime.lastError) }
+        }
     )
   }
-  // TODO: handle other shortcuts?
+  // TODO: handle other shortcuts
 });
 
 chrome.runtime.onMessage.addListener(
-    function(message, callback) {
-        // console.log('heres what we got...', message)
-        if (message.type === "search") {
-            if (message.text) spawnSearchTab(message.text)
+    function(message) {
+        if (message.type === "search" && message.text) {
+            spawnSearchTab(message.text)
         }
-        else if (message.type === "other") console.log('Do other!')
     }
 )

@@ -3,6 +3,11 @@
   "version": "1.0",
   "description": "Keyboard shorcut to auto search currently selected text.",
   "manifest_version": 2,
+  "icons": {
+    "16": "./selectSearchIcon16.png",
+    "48": "./selectSearchIcon48.png",
+    "128": "./selectSearchIcon128.png"
+  },
   "permissions": [
     "activeTab"
   ],
